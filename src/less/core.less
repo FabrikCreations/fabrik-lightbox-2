@@ -1,6 +1,16 @@
-/*! lightgallery - v1.6.11 - 2018-05-22
-* http://sachinchoolur.github.io/lightGallery/
-* Copyright (c) 2018 Sachin N; Licensed GPLv3 */
+/*
+
+@icon-colour:   #fff;
+
+@bg-colour:     #000;
+@bg-opacity:    1;
+
+@description-colour:        @icon-colour;
+@description-font-size:     16px;
+@description-font-family:   "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; 
+
+*/
+
 @font-face {
     font-family: 'lg';
     src: url('data:font/woff2;base64,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') format('woff2'),
@@ -8,7 +18,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  
+
   .lg-icon {
     font-family: 'lg';
     speak: none;

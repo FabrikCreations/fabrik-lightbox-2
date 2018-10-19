@@ -1,7 +1,5 @@
 # Don't track content of these folders
 node_modules/
-someOtherfoler/
-
 
 # Compiled source #
 ###################
@@ -10,8 +8,6 @@ someOtherfoler/
 *.dll
 *.exe
 *.o
-*.so
-
 *.so
 
 # Packages #

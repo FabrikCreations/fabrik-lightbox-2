@@ -1,13 +1,13 @@
 /*
 
-@icon-colour:   #fff;
+@lg-icon-colour:   #fff;
 
-@bg-colour:     #000;
-@bg-opacity:    1;
+@lg-bg-colour:     #000;
+@lg-bg-opacity:    1;
 
-@description-colour:        @icon-colour;
-@description-font-size:     16px;
-@description-font-family:   "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; 
+@lg-description-colour:        @lg-icon-colour;
+@lg-description-font-size:     16px;
+@lg-description-font-family:   "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; 
 
 */
 
@@ -36,7 +36,7 @@
 .lg-actions .lg-prev {
     background-color: transparent;
     border-radius: 2px;
-    color: @icon-colour;
+    color: @lg-icon-colour;
     cursor: pointer;
     display: block;
     font-size: 22px;
@@ -57,7 +57,7 @@
 
 .lg-actions .lg-next:hover,
 .lg-actions .lg-prev:hover {
-    color: @icon-colour;
+    color: @lg-icon-colour;
 }
 
 .lg-actions .lg-next {
@@ -211,7 +211,7 @@
 }
 
 .lg-toolbar .lg-icon {
-    color: @icon-colour;
+    color: @lg-icon-colour;
     cursor: pointer;
     float: right;
     font-size: 24px;
@@ -228,7 +228,7 @@
 }
 
 .lg-toolbar .lg-icon:hover {
-    color: @icon-colour;
+    color: @lg-icon-colour;
 }
 
 .lg-toolbar .lg-close:after {
@@ -241,19 +241,19 @@
 
 .lg-sub-html {
     bottom: 0;
-    color: @description-colour;
+    color: @lg-description-colour;
     left: 0;
     padding: 10px 40px;
     position: fixed;
     right: 0;
     text-align: center;
     z-index: 1080;
-    font-size: @description-font-size;
-    font-family: @description-font-family
+    font-size: @lg-description-font-size;
+    font-family: @lg-description-font-family
 }
 
 #lg-counter {
-    color: @description-colour;
+    color: @lg-description-colour;
     display: inline-block;
     font-size: 16px;
     padding-left: 20px;
@@ -310,7 +310,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 .lg-outer .lg-thumb-outer {
-    background-color: @bg-colour;
+    background-color: @lg-bg-colour;
     bottom: 0;
     position: absolute;
     width: 100%;
@@ -973,8 +973,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     width: 44px;
     height: 44px;
     border: solid 4px transparent;
-    border-top-color: @icon-colour;
-    border-left-color: @icon-colour;
+    border-top-color: @lg-icon-colour;
+    border-left-color: @lg-icon-colour;
     border-radius: 50%;
     box-sizing: border-box;
     position: absolute;
@@ -1090,7 +1090,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     right: 0;
     bottom: 0;
     z-index: 1040;
-    background-color: @bg-colour;
+    background-color: @lg-bg-colour;
     opacity: 0;
     -webkit-transition: opacity 0.15s ease 0s;
     -o-transition: opacity 0.15s ease 0s;
@@ -1098,7 +1098,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 
 .lg-backdrop.in {
-    opacity: @bg-opacity;
+    opacity: @lg-bg-opacity;
 }
 
 .lg-css3.lg-no-trans .lg-prev-slide,

@@ -1554,7 +1554,7 @@
 
                 var oembedHtml = data.response ? data.response.html : data.html;
 
-                video = '<div class="wrapper" style="max-width:' + data.width + 'px;width:' + w + 'px"><div class="video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
+                video = '<div class="lg-video-limit" style="max-width:' + data.width + 'px;width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
 
                 resolve(video);
             });

@@ -5,9 +5,12 @@
 @lg-bg-colour:     #000;
 @lg-bg-opacity:    1;
 
-@lg-description-colour:        @lg-icon-colour;
-@lg-description-font-size:     16px;
-@lg-description-font-family:   "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif; 
+@lg-description-colour:         @lg-icon-colour;
+@lg-description-font-size:      16px;
+@lg-description-font-family:    "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+@lg-description-line-heigt:     1.4;
+@lg-description-text-transform: none;
+@lg-description-letter-spacing: 0;
 
 */
 @font-face {
@@ -208,6 +211,11 @@
   z-index: 1080;
   font-size: 16px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  max-height: 40vh;
+  overflow: auto;
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: 0;
 }
 #lg-counter {
   color: #fff;

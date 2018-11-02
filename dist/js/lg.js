@@ -653,7 +653,7 @@
                 }
 
                 _html = _this.$items.eq(index).attr('data-html');
-                _src = _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src');
+                _src = _this.$items.eq(index).attr('data-src') || _this.$items.eq(index).attr('href');
 
                 if (_this.$items.eq(index).attr('data-responsive')) {
                     var srcItms = _this.$items.eq(index).attr('data-responsive').split(',');
@@ -804,7 +804,7 @@
                     if (_this.s.dynamic) {
                         _src = _this.s.dynamicEl[index].downloadUrl !== false && (_this.s.dynamicEl[index].downloadUrl || _this.s.dynamicEl[index].src);
                     } else {
-                        _src = _this.$items.eq(index).attr('data-download-url') !== 'false' && (_this.$items.eq(index).attr('data-download-url') || _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src'));
+                        _src = _this.$items.eq(index).attr('data-download-url') !== 'false' && (_this.$items.eq(index).attr('data-download-url') || _this.$items.eq(index).attr('data-src')) || _this.$items.eq(index).attr('href');
 
                     }
 
@@ -1491,7 +1491,9 @@
 
     'use strict';
 
-    var defaults = {};
+    var defaults = {
+        videoMaxWidth: '1920px',
+    };
 
     var Video = function(element) {
 
@@ -1535,7 +1537,7 @@
                 aspectRatio = ratio * 100 + '%',
 
                 widthLimit = document.documentElement.clientWidth - 160,
-                heightLimit = document.documentElement.clientHeight - $('.lg-sub-html').height() - $('.lg-toolbar').height() - 64,
+                heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
                 
                 w = data.width,
                 h = data.height,
@@ -1554,7 +1556,7 @@
 
                 var oembedHtml = data.response ? data.response.html : data.html;
 
-                video = '<div class="lg-video-limit" style="max-width:' + data.width + 'px;width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
+                video = '<div class="lg-video-limit" style="max-width:'+ self.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
 
                 resolve(video);
             });
@@ -1572,6 +1574,12 @@
         _this.loadVideo(src, 'lg-object', true, index, html).then(function(video){
             _this.core.$slide.eq(index).find('.lg-video').append(video);
 
+            //now in the dom attach player
+            var iframe = _this.core.$slide.eq(index).find('iframe')[0];
+
+            const player = new playerjs.Player(iframe)
+
+            $(iframe).data('player', player);
         });
     }
 
@@ -1588,13 +1596,21 @@
         /*jshint validthis:true */
         var _this = this;
 
-        //var $videoSlide = _this.core.$slide.eq(prevIndex);
+        var $videoSlide = _this.core.$slide.eq(prevIndex);
+
+        var iframe = $videoSlide.find('iframe').get(0);
+
+        var player = $(iframe).data('player');
+
+        if(player) {
+            player.pause();
+        }
 
         var _src;
         if (_this.core.s.dynamic) {
             _src = _this.core.s.dynamicEl[index].src;
         } else {
-            _src = _this.core.$items.eq(index).attr('href') || _this.core.$items.eq(index).attr('data-src');
+            _src = _this.core.$items.eq(index).attr('data-src') || _this.core.$items.eq(index).attr('href'); 
         }
 
         var _isVideo = this.core.isVideo(_src, index) || false;

@@ -653,7 +653,7 @@
                 }
 
                 _html = _this.$items.eq(index).attr('data-html');
-                _src = _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src');
+                _src = _this.$items.eq(index).attr('data-src') || _this.$items.eq(index).attr('href');
 
                 if (_this.$items.eq(index).attr('data-responsive')) {
                     var srcItms = _this.$items.eq(index).attr('data-responsive').split(',');
@@ -804,7 +804,7 @@
                     if (_this.s.dynamic) {
                         _src = _this.s.dynamicEl[index].downloadUrl !== false && (_this.s.dynamicEl[index].downloadUrl || _this.s.dynamicEl[index].src);
                     } else {
-                        _src = _this.$items.eq(index).attr('data-download-url') !== 'false' && (_this.$items.eq(index).attr('data-download-url') || _this.$items.eq(index).attr('href') || _this.$items.eq(index).attr('data-src'));
+                        _src = _this.$items.eq(index).attr('data-download-url') !== 'false' && (_this.$items.eq(index).attr('data-download-url') || _this.$items.eq(index).attr('data-src')) || _this.$items.eq(index).attr('href');
 
                     }
 

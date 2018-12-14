@@ -47,8 +47,13 @@
                 var ratio =  (data.height/data.width).toPrecision(4),
                 aspectRatio = ratio * 100 + '%',
 
-                widthLimit = document.documentElement.clientWidth - 160,
-                heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
+                widthLimit = document.documentElement.clientWidth;
+
+                if(widthLimit > 400) {
+                    widthLimit = widthLimit - 160;
+                }
+
+                var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
                 
                 w = data.width,
                 h = data.height,
@@ -88,7 +93,7 @@
             //now in the dom attach player
             var iframe = _this.core.$slide.eq(index).find('iframe')[0];
 
-            const player = new playerjs.Player(iframe)
+            const player = new playerjs.Player(iframe);
 
             $(iframe).data('player', player);
         });

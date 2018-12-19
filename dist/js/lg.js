@@ -436,13 +436,15 @@
                 }
             }
 
-            var youtube = src.match(/\/\/(?:www\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
-            var vimeo = src.match(/\/\/(?:www\.)?vimeo.com\//i);
-            var dailymotion = src.match(/\/\/(?:www\.)?dai.ly\//i);
-            var soundcloud = src.match(/\/\/(?:www\.)?soundcloud.com\//i);
-            var wistia = src.match(/\/\/(?:www\.)?wistia.com\//i);
-            var slate = src.match(/\/\/(?:www\.)?slateapp.com\//i);
-            var wiredrive = src.match(/\/\/(?:www\.)?wdrv.it\//i);
+            var youtube = src.match(/\/\/(?:\w+\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
+            var vimeo = src.match(/\/\/(?:\w+\.)?vimeo.com\//i);
+            var dailymotion = src.match(/\/\/(?:\w+\.)?dai.ly\//i);
+            var soundcloud = src.match(/\/\/(?:\w+\.)?soundcloud.com\//i);
+            var wistia = src.match(/\/\/(?:\w+\.)wistia.com\//i);
+            var slate = src.match(/\/\/(?:\w+\.)?slateapp.com\//i);
+            var wiredrive = src.match(/\/\/(?:\w+\.)?wdrv.it\//i);
+            var facebook = src.match(/\/\/(?:\w+\.)?facebook.com\/facebook\/videos\//i);
+
 
             if (youtube) {
                 return {
@@ -476,6 +478,11 @@
             else if (dailymotion) {
                 return {
                     dailymotion: dailymotion
+                };
+            }
+            else if (facebook) {
+                return {
+                    facebook: facebook
                 };
             }
         };

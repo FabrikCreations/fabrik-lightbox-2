@@ -1,6 +1,6 @@
 {
   "name": "fabrik-lightbox-2",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Stripped back version of lightGallery using fabriks video embeds",
   "main": "dist/lg.min.js",
   "scripts": {

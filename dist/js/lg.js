@@ -1494,8 +1494,6 @@
   })();
   
   }));
-import { promises } from "fs";
-
 (function (fabrik, $) {
 
     'use strict';
@@ -1515,7 +1513,7 @@ import { promises } from "fs";
         this.init();
 
         return this;
-    }
+    };
 
     Video.prototype.init = function() {
         var _this = this;

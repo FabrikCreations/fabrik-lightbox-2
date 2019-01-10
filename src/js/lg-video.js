@@ -75,7 +75,7 @@
 
             video = '<div class="lg-video-limit" style="max-width:'+ self.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
 
-            defer.resolve(video);
+            deferred.resolve(video);
         });
 
         return deferred.promise();

@@ -1,3 +1,5 @@
+import { promises } from "fs";
+
 (function (fabrik, $) {
 
     'use strict';
@@ -41,42 +43,45 @@
 
         var self = this;
 
-        return new Promise(resolve => {
-            fabrik.embedService.getEmbed(src).then(function(data) {
+        var deferred = $.Deferred();
+ 
+        fabrik.embedService.getEmbed(src).then(function(data) {
 
-                var ratio =  (data.height/data.width).toPrecision(4),
-                aspectRatio = ratio * 100 + '%',
+            var ratio =  (data.height/data.width).toPrecision(4),
+            aspectRatio = ratio * 100 + '%',
 
-                widthLimit = document.documentElement.clientWidth;
+            widthLimit = document.documentElement.clientWidth;
 
-                if(widthLimit > 400) {
-                    widthLimit = widthLimit - 160;
-                }
+            if(widthLimit > 400) {
+                widthLimit = widthLimit - 160;
+            }
 
-                var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
-                
-                w = data.width,
-                h = data.height,
-                
-                newHeight = widthLimit * ratio;
+            var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
+            
+            w = data.width,
+            h = data.height,
+            
+            newHeight = widthLimit * ratio;
 
-                if (newHeight > heightLimit) {
-                    // the new height would overlap the container height so scale the width instead
-                    w = (heightLimit / ratio).toPrecision(4);
+            if (newHeight > heightLimit) {
+                // the new height would overlap the container height so scale the width instead
+                w = (heightLimit / ratio).toPrecision(4);
 
-                } else {
+            } else {
 
-                    h = widthLimit * ratio;
-                    w = (h / ratio).toPrecision(4);
-                }
+                h = widthLimit * ratio;
+                w = (h / ratio).toPrecision(4);
+            }
 
-                var oembedHtml = data.response ? data.response.html : data.html;
+            var oembedHtml = data.response ? data.response.html : data.html;
 
-                video = '<div class="lg-video-limit" style="max-width:'+ self.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
+            video = '<div class="lg-video-limit" style="max-width:'+ self.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
 
-                resolve(video);
-            });
-        });  
+            defer.resolve(video);
+        });
+
+        return deferred.promise();
+
     };
 
     Video.prototype.destroy = function() {

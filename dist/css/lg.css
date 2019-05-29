@@ -849,6 +849,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
   animation: loading-bar-spinner 500ms linear infinite;
   z-index: -1;
 }
+.lg-outer .lg-item.lg-complete:after {
+  display: none;
+}
 @keyframes loading-bar-spinner {
   0% {
     transform: rotate(0deg);

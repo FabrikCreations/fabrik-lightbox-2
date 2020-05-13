@@ -46,7 +46,7 @@
         fabrik.embedService.getEmbed(src).then(function(data) {
 
             var ratio =  (data.height/data.width).toPrecision(4),
-            aspectRatio = ratio * 100 + '%',
+            aspectRatio = (ratio * 100).toPrecision(4) + '%',
 
             widthLimit = document.documentElement.clientWidth;
 

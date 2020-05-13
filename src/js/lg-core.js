@@ -436,28 +436,32 @@
                 }
             }
 
-            var youtube = src.match(/\/\/(?:\w+\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
             var vimeo = src.match(/\/\/(?:\w+\.)?vimeo.com\//i);
-            var dailymotion = src.match(/\/\/(?:\w+\.)?dai.ly\//i);
+            var youtube = src.match(/\/\/(?:\w+\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
+            var wiredrive = src.match(/\/\/(?:\w+\.)?wdrv.it\//i);
+            var slate = src.match(/\/\/(?:\w+\.)?slateapp.com\//i);
             var soundcloud = src.match(/\/\/(?:\w+\.)?soundcloud.com\//i);
             var wistia = src.match(/\/\/(?:\w+\.)wistia.com\//i);
-            var slate = src.match(/\/\/(?:\w+\.)?slateapp.com\//i);
-            var wiredrive = src.match(/\/\/(?:\w+\.)?wdrv.it\//i);
-            var facebook = src.match(/\/\/(?:\w+\.)?facebook.com\/facebook\/videos\//i);
+            var instagram = src.match(/\/\/(?:\w+\.)?instagram.com\//i);
+            var facebook = src.match(/\/\/(?:\w+\.)?facebook.com\//i);
+            var sketchfab = src.match(/\/\/(?:\w+\.)?sketchfab.com\//i);
+            var spotify = src.match(/\/\/(?:\w+\.)?spotify.com\//i);
 
+            //var dailymotion = src.match(/\/\/(?:\w+\.)?dai.ly\//i);
 
-            if (youtube) {
-                return {
-                    youtube: youtube
-                };
-            } else if (vimeo) {
+            if (vimeo) {
                 return {
                     vimeo: vimeo
                 };
             }
-            else if (soundcloud) {
+            else if (youtube) {
                 return {
-                    soundcloud: soundcloud
+                    youtube: youtube
+                };
+            } 
+            else if (wiredrive) {
+                return {
+                    wiredrive: wiredrive
                 };
             }
             else if (slate) {
@@ -465,9 +469,9 @@
                     slate: slate
                 };
             }
-            else if (wiredrive) {
+            else if (soundcloud) {
                 return {
-                    wiredrive: wiredrive
+                    soundcloud: soundcloud
                 };
             }
             else if (wistia) {
@@ -475,14 +479,29 @@
                     wistia: wistia
                 };
             }
-            else if (dailymotion) {
+            else if (instagram) {
                 return {
-                    dailymotion: dailymotion
+                    instagram: instagram
                 };
             }
+            // else if (dailymotion) {
+            //     return {
+            //         dailymotion: dailymotion
+            //     };
+            // }
             else if (facebook) {
                 return {
                     facebook: facebook
+                };
+            }
+            else if (sketchfab) {
+                return {
+                    sketchfab: sketchfab
+                };
+            }
+            else if (spotify) {
+                return {
+                    spotify: spotify
                 };
             }
         };
@@ -702,7 +721,7 @@
                     _this.$slide.eq(index).prepend('<div class="lg-video-cont ' + videoClass + ' "><div class="lg-video"><span class="lg-video-play"></span><img class="lg-object lg-has-poster" src="' + _poster + '" /></div></div>');
 
                 } else if (_isVideo) {
-                    _this.$slide.eq(index).prepend('<div class="lg-video-cont "><div class="lg-video"></div></div>');
+                    _this.$slide.eq(index).prepend('<div class="lg-video-cont"><div class="lg-video"></div></div>');
                     _this.$el.trigger('hasVideo.lg', [index, _src, _html]);
                 } else {
                     _this.$slide.eq(index).prepend('<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');

@@ -1785,7 +1785,9 @@
             /*jshint validthis:true */
             var _this = this;
 
-            _this.core.$slide.eq(index).find('.lg-video').append(_this.loadVideo(src, 'lg-object', true, index, html)).then(function (video) {
+            //_this.core.$slide.eq(index).find('.lg-video').append(
+                
+            _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
                 _this.core.$slide.eq(index).find('.lg-video').append(video);
 
                 //now in the dom attach player
@@ -1815,7 +1817,7 @@
                     }
                 }
             });
-
+  
         }
 
         function onAferAppendSlide(event, index) {
@@ -1882,9 +1884,7 @@
 
     })(window.fabrik);
 
-
 }));
-
 /*! lg-zoom - v1.1.0 - 2017-08-08
 * http://sachinchoolur.github.io/lightGallery
 * Copyright (c) 2017 Sachin N; Licensed GPLv3 */

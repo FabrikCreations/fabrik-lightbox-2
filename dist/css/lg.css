@@ -415,6 +415,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 .lg-outer .lg-video-object.lg-html5 {
   position: static;
   max-height: 85vh;
+  max-width: 85vw;
 }
 .lg-video-limit {
   line-height: 0;

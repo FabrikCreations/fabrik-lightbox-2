@@ -315,7 +315,7 @@
                 //now in the dom attach player
                 var iframe = _this.core.$slide.eq(index).find('iframe')[0];
 
-                if (iframe.length) {
+                if (iframe) {
 
                     const player = new playerjs.Player(iframe);
 

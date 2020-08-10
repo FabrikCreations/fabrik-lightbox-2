@@ -270,7 +270,9 @@
             /*jshint validthis:true */
             var _this = this;
 
-            _this.core.$slide.eq(index).find('.lg-video').append(_this.loadVideo(src, 'lg-object', true, index, html)).then(function (video) {
+            //_this.core.$slide.eq(index).find('.lg-video').append(
+                
+            _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
                 _this.core.$slide.eq(index).find('.lg-video').append(video);
 
                 //now in the dom attach player
@@ -300,7 +302,7 @@
                     }
                 }
             });
-
+  
         }
 
         function onAferAppendSlide(event, index) {
@@ -366,6 +368,5 @@
         $.fn.lightGallery.modules.video = Video;
 
     })(window.fabrik);
-
 
 }));

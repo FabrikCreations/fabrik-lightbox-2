@@ -112,52 +112,89 @@
             if (isVideo.html5) {
                 var fL = html.substring(0, 1);
                 if (fL === '.' || fL === '#') {
+
                     html = $(html).html();
+
+                    var v = $(html)[0];
+
+                    v.addEventListener("loadedmetadata", function () {
+                        let height = this.videoHeight;
+                        let width = this.videoWidth;
+
+                        var ratio = (height / width).toPrecision(4),
+                            aspectRatio = (ratio * 100).toPrecision(4) + '%',
+
+                            widthLimit = document.documentElement.clientWidth;
+
+                        if (widthLimit > 400) {
+                            widthLimit = widthLimit - 160;
+                        }
+
+                        var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height() * 2) - 64,
+                            w = width,
+                            h = height,
+
+                            newHeight = widthLimit * ratio;
+
+                        if (newHeight > heightLimit) {
+                            // the new height would overlap the container height so scale the width instead
+                            w = (heightLimit / ratio).toPrecision(4);
+
+                        } else {
+
+                            h = widthLimit * ratio;
+                            w = (h / ratio).toPrecision(4);
+                        }
+
+                        video = '<div class="lg-video-limit" style="max-width:' + _this.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + html + '</div></div>';
+
+                        deferred.resolve(video);
+
+                    });
+
                 }
 
-                video = html;
 
-                deferred.resolve(video);
 
-            } 
+            }
             else if (isVideo) {
 
-                fabrik.embedService.getEmbed(src).then(function(data) {
+                fabrik.embedService.getEmbed(src).then(function (data) {
 
-                    var ratio =  (data.height/data.width).toPrecision(4),
-                    aspectRatio = (ratio * 100).toPrecision(4) + '%',
-        
-                    widthLimit = document.documentElement.clientWidth;
-        
-                    if(widthLimit > 400) {
+                    var ratio = (data.height / data.width).toPrecision(4),
+                        aspectRatio = (ratio * 100).toPrecision(4) + '%',
+
+                        widthLimit = document.documentElement.clientWidth;
+
+                    if (widthLimit > 400) {
                         widthLimit = widthLimit - 160;
                     }
-        
-                    var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height()*2) - 64,
-                    
-                    w = data.width,
-                    h = data.height,
-                    
-                    newHeight = widthLimit * ratio;
-        
+
+                    var heightLimit = document.documentElement.clientHeight - ($('.lg-toolbar').height() * 2) - 64,
+
+                        w = data.width,
+                        h = data.height,
+
+                        newHeight = widthLimit * ratio;
+
                     if (newHeight > heightLimit) {
                         // the new height would overlap the container height so scale the width instead
                         w = (heightLimit / ratio).toPrecision(4);
-        
+
                     } else {
-        
+
                         h = widthLimit * ratio;
                         w = (h / ratio).toPrecision(4);
                     }
-        
+
                     var oembedHtml = data.response ? data.response.html : data.html;
-        
-                    video = '<div class="lg-video-limit" style="max-width:'+ _this.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
-        
+
+                    video = '<div class="lg-video-limit" style="max-width:' + _this.core.s.videoMaxWidth + ';width:' + w + 'px"><div class="lg-video-wrapper" style="padding-top:' + aspectRatio + '">' + oembedHtml + '</div></div>';
+
                     deferred.resolve(video);
                 });
 
-            }  
+            }
 
             return deferred.promise();
         };
@@ -225,25 +262,25 @@
 
                 } else {
 
-         
-                    var videoWrapper = $el.find('.lg-video').get(0);  
+
+                    var videoWrapper = $el.find('.lg-video').get(0);
                     var html5Player = $el.find('.lg-html5').get(0);
 
                     if (videoWrapper) {
                         try {
-                            
+
                             var iframe = $(videoWrapper).find('iframe').get(0);
 
                             var player = $(iframe).data('player');
 
-                            if(player) {
+                            if (player) {
                                 player.pause();
                             }
 
                         } catch (e) {
                             console.error('Make sure you have included froogaloop2 js');
                         }
-                    } 
+                    }
                     else if (html5Player) {
                         if (_this.core.s.videojs) {
                             try {
@@ -271,16 +308,16 @@
             var _this = this;
 
             //_this.core.$slide.eq(index).find('.lg-video').append(
-                
+
             _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
                 _this.core.$slide.eq(index).find('.lg-video').append(video);
 
                 //now in the dom attach player
                 var iframe = _this.core.$slide.eq(index).find('iframe')[0];
 
-                if (iframe) {
+                if (iframe.length) {
 
-                    var player = new playerjs.Player(iframe);
+                    const player = new playerjs.Player(iframe);
 
                     $(iframe).data('player', player);
                 }
@@ -302,7 +339,7 @@
                     }
                 }
             });
-  
+
         }
 
         function onAferAppendSlide(event, index) {
@@ -368,5 +405,6 @@
         $.fn.lightGallery.modules.video = Video;
 
     })(window.fabrik);
+
 
 }));

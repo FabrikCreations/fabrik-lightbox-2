@@ -1838,9 +1838,13 @@
 
                 if (iframe) {
 
-                    const player = new playerjs.Player(iframe);
+                    var player = new playerjs.Player(iframe);
 
                     $(iframe).data('player', player);
+
+                    if (player) {
+                        player.play();
+                    }
                 }
                 else if (html) {
                     if (_this.core.s.videojs) {

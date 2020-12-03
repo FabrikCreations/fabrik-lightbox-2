@@ -323,7 +323,7 @@
 
                 if (iframe) {
 
-                    const player = new playerjs.Player(iframe);
+                    var player = new playerjs.Player(iframe);
 
                     $(iframe).data('player', player);
 

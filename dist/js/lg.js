@@ -1692,15 +1692,21 @@
 
                         newHeight = widthLimit * ratio;
 
-                    if (newHeight > heightLimit) {
-                        // the new height would overlap the container height so scale the width instead
-                        w = (heightLimit / ratio).toPrecision(4);
-
-                    } else {
-
-                        h = widthLimit * ratio;
-                        w = (h / ratio).toPrecision(4);
-                    }
+                        if (newHeight > heightLimit) {
+                            // the new height would overlap the container height so scale the width instead
+                            var newWidth = (heightLimit / ratio).toPrecision(4);
+                            if (newWidth < w) {
+                                w = newWidth;
+                            }
+    
+                        } else {
+    
+                            h = widthLimit * ratio;
+                            var nWidth = (h / ratio).toPrecision(4);
+                            if (nWidth < w) {
+                                w = nWidth;
+                            }
+                        }
 
                     var oembedHtml = data.response ? data.response.html : data.html;
 
@@ -1789,7 +1795,7 @@
                             var player = $(iframe).data('player');
 
                             if (player) {
-                                player.pause();
+                                player.play();
                             }
 
                         } catch (e) {

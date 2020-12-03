@@ -280,7 +280,7 @@
                             var player = $(iframe).data('player');
 
                             if (player) {
-                                player.pause();
+                                player.play();
                             }
 
                         } catch (e) {

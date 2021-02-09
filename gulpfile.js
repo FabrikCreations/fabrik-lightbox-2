@@ -8,13 +8,14 @@ var rename = require('gulp-rename');
 
 var DEST = './dist/';
 
-gulp.task('clean', function () {
-    return del([
+gulp.task('clean', (done) => {
+    del.sync([
         DEST + '**/*',
     ]);
+    done();
 });
 
-gulp.task('scripts', ['clean'], function () {
+gulp.task('scripts', () => {
     return gulp.src(['./src/js/lg-core.js', './src/js/lg-fullscreen.js', './src/js/lg-video.js', './src/js/lg-zoom.js'])
         .pipe(concat('js/lg.js'))
         .pipe(gulp.dest(DEST))
@@ -24,16 +25,15 @@ gulp.task('scripts', ['clean'], function () {
         })
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(DEST));
-});
+    });
 
-gulp.task('less', ['clean'], function () {
+gulp.task('less', () => {
     return gulp.src('./src/less/core.less')
         .pipe(rename('less/lg.less'))
         .pipe(gulp.dest(DEST));
-
 });
 
-gulp.task('css', ['clean'], function () {
+gulp.task('css', () => {
     return gulp.src('./src/less/lg.less')
       .pipe(less())
       .pipe(rename('css/lg.css'))
@@ -43,4 +43,4 @@ gulp.task('css', ['clean'], function () {
       .pipe(gulp.dest(DEST));
   });
 
-gulp.task('default', ['scripts', 'less', 'css']);
+gulp.task('default', gulp.series('clean', 'scripts', 'less', 'css'));

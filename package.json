@@ -14,11 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-csso": "^3.0.1",
+    "gulp-csso": "^4.0.1",
     "gulp-less": "^4.0.1",
-    "gulp-rename": "^1.4.0",
-    "gulp-uglify-es": "^1.0.4"
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify-es": "^2.0.0"
   }
 }

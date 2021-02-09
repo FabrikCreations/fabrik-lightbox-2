@@ -1828,13 +1828,14 @@
             /*jshint validthis:true */
             var _this = this;
 
-            //_this.core.$slide.eq(index).find('.lg-video').append(
-
             _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
-                _this.core.$slide.eq(index).find('.lg-video').append(video);
+
+                var _slide = _this.core.$slide.eq(index);
+
+                _slide.find('.lg-video').append(video);
 
                 //now in the dom attach player
-                var iframe = _this.core.$slide.eq(index).find('iframe')[0];
+                var iframe = _slide.find('iframe')[0];
 
                 if (iframe) {
 
@@ -1842,14 +1843,14 @@
 
                     $(iframe).data('player', player);
 
-                    if (player) {
+                    if (player && _slide.hasClass('lg-current') && _this.core.s.autoplayFirstVideo) {
                         player.play();
                     }
                 }
                 else if (html) {
                     if (_this.core.s.videojs) {
                         try {
-                            videojs(_this.core.$slide.eq(index).find('.lg-html5').get(0), _this.core.s.videojsOptions, function () {
+                            videojs(_slide.find('.lg-html5').get(0), _this.core.s.videojsOptions, function () {
                                 if (!_this.videoLoaded && _this.core.s.autoplayFirstVideo) {
                                     this.play();
                                 }
@@ -1858,8 +1859,8 @@
                             console.error('Make sure you have included videojs');
                         }
                     } else {
-                        if (!_this.videoLoaded && _this.core.s.autoplayFirstVideo) {
-                            _this.core.$slide.eq(index).find('.lg-html5').get(0).play();
+                        if (!_this.videoLoaded && _this.core.s.autoplayFirstVideo && _slide.hasClass('lg-current')) {
+                            _slide.find('.lg-html5').get(0).play();
                         }
                     }
                 }
@@ -1882,10 +1883,10 @@
             var _this = this;
 
             var $videoSlide = _this.core.$slide.eq(prevIndex);
-
             var fabrikPlayer = $videoSlide.find('iframe').get(0);
             var html5Player = $videoSlide.find('.lg-html5').get(0);
 
+            // pause videos
             if (fabrikPlayer) {
                 try {
                     var player = $(fabrikPlayer).data('player');
@@ -1908,6 +1909,35 @@
                     html5Player.pause();
                 }
             }
+
+            var $videoNextSlide = _this.core.$slide.eq(index);
+            var fabrikNextPlayer = $videoNextSlide.find('iframe').get(0);
+            var html5NextPlayer = $videoNextSlide.find('.lg-html5').get(0);
+
+            // play slide videos
+            if (fabrikNextPlayer) {
+                try {
+                    var fabrikVideoPlayer = $(fabrikNextPlayer).data('player');
+
+                    if (fabrikVideoPlayer) {
+                        fabrikVideoPlayer.play();
+                    }
+
+                } catch (e) {
+                    console.error('Cant find Fabrik player');
+                }
+            } else if (html5NextPlayer) {
+                if (_this.core.s.videojs) {
+                    try {
+                        videojs(html5NextPlayer).play();
+                    } catch (e) {
+                        console.error('Make sure you have included videojs');
+                    }
+                } else {
+                    html5NextPlayer.play();
+                }
+            }
+
 
             var _src;
             if (_this.core.s.dynamic) {

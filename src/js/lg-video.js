@@ -26,7 +26,8 @@
             videoMaxWidth: '855px',
             autoplayFirstVideo: true,
             videojs: false,
-            videojsOptions: {}
+            videojsOptions: {},
+            maxScreenWidth: 450
         };
 
         var Video = function (element) {
@@ -126,7 +127,7 @@
 
                             widthLimit = document.documentElement.clientWidth;
 
-                        if (widthLimit > 400) {
+                        if (widthLimit > _this.core.s.maxScreenWidth) {
                             widthLimit = widthLimit - 160;
                         }
 
@@ -166,7 +167,7 @@
 
                         widthLimit = document.documentElement.clientWidth;
 
-                    if (widthLimit > 400) {
+                    if (widthLimit > _this.core.s.maxScreenWidth) {
                         widthLimit = widthLimit - 160;
                     }
 

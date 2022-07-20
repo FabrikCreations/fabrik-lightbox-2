@@ -22,3 +22,4 @@ node_modules/
 *.rar
 *.tar
 *.zip
+config.bat

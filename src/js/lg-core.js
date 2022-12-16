@@ -438,8 +438,8 @@
 
             var vimeo = src.match(/\/\/(?:\w+\.)?vimeo.com\//i);
             var youtube = src.match(/\/\/(?:\w+\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
-            var wiredrive = src.match(/\/\/(?:\w+\.)?wdrv.it\//i);
-            var slate = src.match(/\/\/(?:\w+\.)?slateapp.com\//i);
+            var wiredrive = src.match(/\/\/(?:\w+\.)?(?:slateapp\.com|slt\.re)\//i);
+            var slate = src.match(/\/\/(?:\w+\.)?slateapp\.com|slt\.re\//i);
             var soundcloud = src.match(/\/\/(?:\w+\.)?soundcloud.com\//i);
             var wistia = src.match(/\/\/(?:\w+\.)wistia.com\//i);
             var instagram = src.match(/\/\/(?:\w+\.)?instagram.com\//i);

@@ -1675,7 +1675,7 @@
             }
             else if (isVideo) {
 
-                fabrik.embedService.getEmbed(src).then(function (data) {
+                fabrik.embedService.getEmbed(src, { autoplay: true }).then(function (data) {
 
                     var ratio = (data.height / data.width).toPrecision(4),
                         aspectRatio = (ratio * 100).toPrecision(4) + '%',

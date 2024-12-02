@@ -83,7 +83,7 @@
             }
         };
 
-        Video.prototype.loadVideo = function (src, addClass, noPoster, index, html) {
+        Video.prototype.loadVideo = function (src, addClass, noPoster, index, html, autoPlayEmbed) {
             var _this = this;
             var video = '';
             var autoplay = 1;
@@ -160,7 +160,7 @@
             }
             else if (isVideo) {
 
-                fabrik.embedService.getEmbed(src, { autoplay: true }).then(function (data) {
+                fabrik.embedService.getEmbed(src, { autoplay: autoPlayEmbed }).then(function (data) {
 
                     var ratio = (data.height / data.width).toPrecision(4),
                         aspectRatio = (ratio * 100).toPrecision(4) + '%',
@@ -221,7 +221,7 @@
                     var _html;
                     var _loadVideo = function (_src, _html) {
 
-                        $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html));
+                        $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html, true));
 
                         if (_html) {
                             if (_this.core.s.videojs) {

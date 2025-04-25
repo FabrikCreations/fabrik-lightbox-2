@@ -441,7 +441,7 @@
             var wiredrive = src.match(/\/\/(?:\w+\.)?(?:slateapp\.com|slt\.re)\//i);
             var slate = src.match(/\/\/(?:\w+\.)?slateapp\.com|slt\.re\//i);
             var soundcloud = src.match(/\/\/(?:\w+\.)?soundcloud.com\//i);
-            var wistia = src.match(/\/\/(?:\w+\.)wistia.com\//i);
+            var wistia = src.match(/wistia\.com/i);
             var instagram = src.match(/\/\/(?:\w+\.)?instagram.com\//i);
             var facebook = src.match(/\/\/(?:\w+\.)?facebook.com\//i);
             var sketchfab = src.match(/\/\/(?:\w+\.)?sketchfab.com\//i);

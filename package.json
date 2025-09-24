@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/phil118/fabrik-lightbox-2.git"
+    "url": "https://github.com/FabrikCreations/fabrik-lightbox-2.git"
   },
-  "author": "Phil Jenkins <phil@fabrik.io> (https://fabrik.io)",
+  "author": "Fabrik (https://fabrik.io)",
   "license": "ISC",
   "devDependencies": {
     "del": "^3.0.0",

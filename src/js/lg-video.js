@@ -27,7 +27,12 @@
             autoplayFirstVideo: true,
             videojs: false,
             videojsOptions: {},
-            maxScreenWidth: 450
+            maxScreenWidth: 450,
+            iframe: {
+                autoplay: true,
+                muted: false,
+                loop: false
+            }
         };
 
         var Video = function (element) {
@@ -83,11 +88,10 @@
             }
         };
 
-        Video.prototype.loadVideo = function (src, addClass, noPoster, index, html, autoPlayEmbed) {
+        Video.prototype.loadVideo = function (src, index, html) {
             var _this = this;
             var video = '';
-            var autoplay = 1;
-            //var a = '';
+
             var isVideo = this.core.isVideo(src, index) || false;
             var videoTitle;
 
@@ -100,15 +104,6 @@
             }
 
             videoTitle = videoTitle ? 'title="' + videoTitle + '"' : '';
-
-            // Enable autoplay based on setting for first video if poster doesn't exist
-            if (noPoster) {
-                if (this.videoLoaded) {
-                    autoplay = 0;
-                } else {
-                    autoplay = this.core.s.autoplayFirstVideo ? 1 : 0;
-                }
-            }
 
             if (isVideo.html5) {
                 var fL = html.substring(0, 1);
@@ -160,7 +155,11 @@
             }
             else if (isVideo) {
 
-                fabrik.embedService.getEmbed(src, { autoplay: autoPlayEmbed }).then(function (data) {
+                fabrik.embedService.getEmbed(src, { 
+                        autoplay: _this.core.s.iframe.autoplay, 
+                        muted: _this.core.s.iframe.muted, 
+                        loop: _this.core.s.iframe.loop 
+                    }).then(function (data) {
 
                     var ratio = (data.height / data.width).toPrecision(4),
                         aspectRatio = (ratio * 100).toPrecision(4) + '%',
@@ -221,7 +220,7 @@
                     var _html;
                     var _loadVideo = function (_src, _html) {
 
-                        $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html, true));
+                        $el.find('.lg-video').append(_this.loadVideo(_src, _this.core.index, _html));
 
                         if (_html) {
                             if (_this.core.s.videojs) {
@@ -314,7 +313,7 @@
             /*jshint validthis:true */
             var _this = this;
 
-            _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
+            _this.loadVideo(src, index, html).then(function (video) {
 
                 var _slide = _this.core.$slide.eq(index);
 

@@ -427,83 +427,38 @@
 
             if (!src) {
                 if (html) {
-                    return {
-                        html5: true
-                    };
-                } else {
+                    return { html5: true, videoClass: 'lg-has-html5' };
+                }
+                else {
                     console.error('lightGallery :- data-src is not pvovided on slide item ' + (index + 1) + '. Please make sure the selector property is properly configured. More info - http://sachinchoolur.github.io/lightGallery/demos/html-markup.html');
                     return false;
                 }
             }
 
-            var vimeo = src.match(/\/\/(?:\w+\.)?vimeo.com\//i);
-            var youtube = src.match(/\/\/(?:\w+\.)?youtu(?:\.be|be\.com|be-nocookie\.com)\//i);
-            var wiredrive = src.match(/\/\/(?:\w+\.)?(?:slateapp\.com|slt\.re)\//i);
-            var slate = src.match(/\/\/(?:\w+\.)?slateapp\.com|slt\.re\//i);
-            var soundcloud = src.match(/\/\/(?:\w+\.)?soundcloud.com\//i);
-            var wistia = src.match(/wistia\.com/i);
-            var instagram = src.match(/\/\/(?:\w+\.)?instagram.com\//i);
-            var facebook = src.match(/\/\/(?:\w+\.)?facebook.com\//i);
-            var sketchfab = src.match(/\/\/(?:\w+\.)?sketchfab.com\//i);
-            var spotify = src.match(/\/\/(?:\w+\.)?spotify.com\//i);
+            // Map domain regex to type and class
+            const videoTypes = [
+                { key: 'youtube', regex: /(youtube\.com|youtu\.be)\//i, class: 'lg-has-youtube' },
+                { key: 'vimeo', regex: /vimeo\.com\//i, class: 'lg-has-vimeo' },
+                { key: 'facebook', regex: /(facebook\.com|fb\.watch)\//i, class: 'lg-has-facebook' },
+                { key: 'instagram', regex: /instagram\.com\//i, class: 'lg-has-instagram' },
+                { key: 'kinescope', regex: /kinescope\.io\//i, class: 'lg-has-kinescope' },
+                { key: 'gosimian', regex: /gosimian\.com\//i, class: 'lg-has-gosimian' },
+                { key: 'sketchfab', regex: /sketchfab\.com\//i, class: 'lg-has-sketchfab' },
+                { key: 'slate', regex: /(slateapp\.com|slt\.re|shotsreels\.com|shots\.re)\//i, class: 'lg-has-slate' },
+                { key: 'soundcloud', regex: /soundcloud\.com\//i, class: 'lg-has-soundcloud' },
+                { key: 'spotify', regex: /spotify\.com\//i, class: 'lg-has-spotify' },
+                { key: 'wiredrive', regex: /wdrv\.it\//i, class: 'lg-has-wiredrive' },
+                { key: 'wistia', regex: /(wistia\.com|wi\.st)\//i, class: 'lg-has-wistia' },
+                { key: 'mediadelivery', regex: /mediadelivery\.net\//i, class: 'lg-has-mediadelivery' }
+            ];
 
-            //var dailymotion = src.match(/\/\/(?:\w+\.)?dai.ly\//i);
+            for (const type of videoTypes) {
+                if (src.match(type.regex)) {
+                    return { [type.key]: true, videoClass: type.class };
+                }
+            }
 
-            if (vimeo) {
-                return {
-                    vimeo: vimeo
-                };
-            }
-            else if (youtube) {
-                return {
-                    youtube: youtube
-                };
-            } 
-            else if (wiredrive) {
-                return {
-                    wiredrive: wiredrive
-                };
-            }
-            else if (slate) {
-                return {
-                    slate: slate
-                };
-            }
-            else if (soundcloud) {
-                return {
-                    soundcloud: soundcloud
-                };
-            }
-            else if (wistia) {
-                return {
-                    wistia: wistia
-                };
-            }
-            else if (instagram) {
-                return {
-                    instagram: instagram
-                };
-            }
-            // else if (dailymotion) {
-            //     return {
-            //         dailymotion: dailymotion
-            //     };
-            // }
-            else if (facebook) {
-                return {
-                    facebook: facebook
-                };
-            }
-            else if (sketchfab) {
-                return {
-                    sketchfab: sketchfab
-                };
-            }
-            else if (spotify) {
-                return {
-                    spotify: spotify
-                };
-            }
+            return false;
         };
 
         /**
@@ -688,43 +643,41 @@
 
                 _srcset = _this.$items.eq(index).attr('data-srcset');
                 _sizes = _this.$items.eq(index).attr('data-sizes');
-
             }
 
-            //if (_src || _srcset || _sizes || _poster) {
-
-            var iframe = false;
-            if (_this.s.dynamic) {
-                if (_this.s.dynamicEl[index].iframe) {
-                    iframe = true;
-                }
-            } else {
-                if (_this.$items.eq(index).attr('data-iframe') === 'true') {
-                    iframe = true;
-                }
-            }
+            var iframe = _this.s.dynamic
+                ? !!(_this.s.dynamicEl[index] && _this.s.dynamicEl[index].iframe)
+                : _this.$items.eq(index).attr('data-iframe') === 'true';
 
             var _isVideo = _this.isVideo(_src, index);
             if (!_this.$slide.eq(index).hasClass('lg-loaded')) {
                 if (iframe) {
-                    _this.$slide.eq(index).prepend('<div class="lg-video-cont lg-has-iframe" style="max-width:' + _this.s.iframeMaxWidth + '"><div class="lg-video"><iframe class="lg-object" frameborder="0" src="' + _src + '"  allowfullscreen="true"></iframe></div></div>');
-                } else if (_hasPoster) {
-                    var videoClass = '';
-                    if (_isVideo && _isVideo.youtube) {
-                        videoClass = 'lg-has-youtube';
-                    } else if (_isVideo && _isVideo.vimeo) {
-                        videoClass = 'lg-has-vimeo';
-                    } else {
-                        videoClass = 'lg-has-html5';
-                    }
+                    _this.$slide.eq(index).prepend(
+                        '<div class="lg-video-cont lg-has-iframe" style="max-width:' + _this.s.iframeMaxWidth + '">' +
+                        '<div class="lg-video"><iframe class="lg-object" frameborder="0" src="' + _src + '"  allowfullscreen="true"></iframe></div></div>'
+                    );
+                } 
+                else if (_hasPoster) {
+                    var videoClass = (_isVideo && _isVideo.videoClass) ? _isVideo.videoClass : 'lg-has-html5';
 
-                    _this.$slide.eq(index).prepend('<div class="lg-video-cont ' + videoClass + ' "><div class="lg-video"><span class="lg-video-play"></span><img class="lg-object lg-has-poster" src="' + _poster + '" /></div></div>');
+                    _this.$slide.eq(index).prepend(
+                        '<div class="lg-video-cont ' + videoClass + ' ">' + 
+                        '<div class="lg-video"><span class="lg-video-play"></span><img class="lg-object lg-has-poster" src="' + _poster + '" /></div></div>'
+                    );
+                } 
+                else if (_isVideo) {
+                    var videoClass = (_isVideo && _isVideo.videoClass) ? _isVideo.videoClass : '';
 
-                } else if (_isVideo) {
-                    _this.$slide.eq(index).prepend('<div class="lg-video-cont"><div class="lg-video"></div></div>');
+                    _this.$slide.eq(index).prepend(
+                        '<div class="lg-video-cont ' + videoClass + '"><div class="lg-video"></div></div>'
+                    );
+
                     _this.$el.trigger('hasVideo.lg', [index, _src, _html]);
-                } else {
-                    _this.$slide.eq(index).prepend('<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>');
+                } 
+                else {
+                    _this.$slide.eq(index).prepend(
+                        '<div class="lg-img-wrap"><img class="lg-object lg-image" src="' + _src + '" /></div>'
+                    );
                 }
 
                 _this.$el.trigger('onAferAppendSlide.lg', [index]);
@@ -1542,7 +1495,12 @@
             autoplayFirstVideo: true,
             videojs: false,
             videojsOptions: {},
-            maxScreenWidth: 450
+            maxScreenWidth: 450,
+            iframe: {
+                autoplay: true,
+                muted: false,
+                loop: false
+            }
         };
 
         var Video = function (element) {
@@ -1598,11 +1556,10 @@
             }
         };
 
-        Video.prototype.loadVideo = function (src, addClass, noPoster, index, html, autoPlayEmbed) {
+        Video.prototype.loadVideo = function (src, index, html) {
             var _this = this;
             var video = '';
-            var autoplay = 1;
-            //var a = '';
+
             var isVideo = this.core.isVideo(src, index) || false;
             var videoTitle;
 
@@ -1615,15 +1572,6 @@
             }
 
             videoTitle = videoTitle ? 'title="' + videoTitle + '"' : '';
-
-            // Enable autoplay based on setting for first video if poster doesn't exist
-            if (noPoster) {
-                if (this.videoLoaded) {
-                    autoplay = 0;
-                } else {
-                    autoplay = this.core.s.autoplayFirstVideo ? 1 : 0;
-                }
-            }
 
             if (isVideo.html5) {
                 var fL = html.substring(0, 1);
@@ -1675,7 +1623,11 @@
             }
             else if (isVideo) {
 
-                fabrik.embedService.getEmbed(src, { autoplay: autoPlayEmbed }).then(function (data) {
+                fabrik.embedService.getEmbed(src, { 
+                        autoplay: _this.core.s.iframe.autoplay, 
+                        muted: _this.core.s.iframe.muted, 
+                        loop: _this.core.s.iframe.loop 
+                    }).then(function (data) {
 
                     var ratio = (data.height / data.width).toPrecision(4),
                         aspectRatio = (ratio * 100).toPrecision(4) + '%',
@@ -1736,7 +1688,7 @@
                     var _html;
                     var _loadVideo = function (_src, _html) {
 
-                        $el.find('.lg-video').append(_this.loadVideo(_src, '', false, _this.core.index, _html, true));
+                        $el.find('.lg-video').append(_this.loadVideo(_src, _this.core.index, _html));
 
                         if (_html) {
                             if (_this.core.s.videojs) {
@@ -1829,7 +1781,7 @@
             /*jshint validthis:true */
             var _this = this;
 
-            _this.loadVideo(src, 'lg-object', true, index, html).then(function (video) {
+            _this.loadVideo(src, index, html).then(function (video) {
 
                 var _slide = _this.core.$slide.eq(index);
 

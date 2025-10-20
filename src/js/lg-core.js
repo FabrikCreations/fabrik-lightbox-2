@@ -646,7 +646,7 @@
             }
 
             var iframe = _this.s.dynamic
-                ? !!_this.s.dynamicEl[index]?.iframe
+                ? !!(_this.s.dynamicEl[index] && _this.s.dynamicEl[index].iframe)
                 : _this.$items.eq(index).attr('data-iframe') === 'true';
 
             var _isVideo = _this.isVideo(_src, index);
@@ -671,7 +671,7 @@
                     _this.$slide.eq(index).prepend(
                         '<div class="lg-video-cont ' + videoClass + '"><div class="lg-video"></div></div>'
                     );
-                    
+
                     _this.$el.trigger('hasVideo.lg', [index, _src, _html]);
                 } 
                 else {

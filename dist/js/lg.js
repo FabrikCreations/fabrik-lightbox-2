@@ -1499,8 +1499,7 @@
             iframe: {
                 autoplay: true,
                 muted: false,
-                loop: false,
-                maxwidth: 3840
+                loop: false
             }
         };
 
@@ -1627,8 +1626,7 @@
                 fabrik.embedService.getEmbed(src, { 
                         autoplay: _this.core.s.iframe.autoplay, 
                         muted: _this.core.s.iframe.muted, 
-                        loop: _this.core.s.iframe.loop,
-                        maxwidth: _this.core.s.videoMaxWidth
+                        loop: _this.core.s.iframe.loop 
                     }).then(function (data) {
 
                     var ratio = (data.height / data.width).toPrecision(4),
